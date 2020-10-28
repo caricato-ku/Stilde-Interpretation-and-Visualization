@@ -64,10 +64,14 @@ ARGUMENTS
     color2 = list(cmd.get_color_tuple(color2))
 
     #get coordinates of atom1 which is 'sele'
-    xyz1 = cmd.get_coords(atom1)
-    xyz1 = xyz1.flatten()
-    xyz1 = xyz1.tolist()
-    xyz2 = endpoint
+    if atom1=="sele":
+        xyz1 = cmd.get_coords(atom1)
+        xyz1 = xyz1.flatten()
+        xyz1 = xyz1.tolist()
+    else:
+        xyz1=[float(a) for a in atom1]
+
+    xyz2 = [float(e) for e in endpoint]
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
 
     #if head length parameters are not specified
