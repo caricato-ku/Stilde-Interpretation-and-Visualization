@@ -7,7 +7,6 @@ License: BSD-2-Clause
 '''
 
 #Insert vector pair
-#Default to start vector at origin of coords system
 #Scaling default should be one, allow for option to scaling, increase by factor of 5
 #scale separately
 #If selecting atoms, shift vectors according because vectors are based around origin
@@ -17,42 +16,20 @@ License: BSD-2-Clause
 #Add arc between vectors for angle
 
 from pymol import cmd, CmdException
-import pandas as pd
 import argparse as ap
 from pymol.cgo import *
 import numpy as np
 import sys
 
-def scale_endpoint(end):
+def scale_endpoint(end, factor=5):
+    print(end)
     for i in range(len(end)):
-        end[i] = end[i]*4
+        end[i] = end[i]*factor
     return end
 
-def cgo_arrow(origin=[0,0,0], endpoint=[-3.786958749, -0.649784273, 1.59145952], radius=0.25, gap=0.0, hlength=-1, hradius=-1,
+def cgo_arrow(origin=[0,0,0], endpoint=[], radius=0.25, gap=0.0, hlength=-1, hradius=-1,
               color='blue', type='', name =''):
-    '''
-DESCRIPTION
 
-    Create a CGO arrow between two picked atoms.
-
-ARGUMENTS
-
-    atom1 = string: single atom selection or list of 3 floats {default: sele}
-
-    endpoint = string: list of 3 floats, currently arbitrary, normally would be desired vector from datasheet
-
-    radius = float: arrow radius {default: 0.25}
-
-    gap = float: gap between arrow tips and the two atoms {default: 0.0}
-
-    hlength = float: length of head
-
-    hradius = float: radius of head
-
-    color = string: one or two color names {default: blue}
-
-    name = string: name of CGO object
-    '''
     from chempy import cpv
     #converting parameters to floats
     radius, gap = float(radius), float(gap)
@@ -73,7 +50,6 @@ ARGUMENTS
     #get coordinates of atom1 which is 'sele'
     xyz1 = origin
     xyz2 = scale_endpoint(endpoint)
-    print(xyz2)
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
 
     #if head length parameters are not specified
@@ -97,12 +73,4 @@ ARGUMENTS
         name = cmd.get_unused_name('arrow')
 
     cmd.load_cgo(obj, name)
-
-
-
-
-data = pd.read_csv("output.csv")
-print(data)
-print("Select a vector to be visualized")
-
-#cmd.extend('cgo_arrow', cgo_arrow)
+    cmd.extend('cgo_arrow', cgo_arrow)
