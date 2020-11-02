@@ -17,11 +17,18 @@ License: BSD-2-Clause
 #Add arc between vectors for angle
 
 from pymol import cmd, CmdException
+import pandas as pd
+import argparse as ap
 from pymol.cgo import *
 import numpy as np
+import sys
 
+def scale_endpoint(end):
+    for i in range(len(end)):
+        end[i] = end[i]*4
+    return end
 
-def cgo_arrow(atom1='sele', endpoint=[2.759453589, 2.263740837, 2.505137712], radius=0.25, gap=0.0, hlength=-1, hradius=-1,
+def cgo_arrow(origin=[0,0,0], endpoint=[-3.786958749, -0.649784273, 1.59145952], radius=0.25, gap=0.0, hlength=-1, hradius=-1,
               color='blue', type='', name =''):
     '''
 DESCRIPTION
@@ -64,10 +71,9 @@ ARGUMENTS
     color2 = list(cmd.get_color_tuple(color2))
 
     #get coordinates of atom1 which is 'sele'
-    xyz1 = cmd.get_coords(atom1)
-    xyz1 = xyz1.flatten()
-    xyz1 = xyz1.tolist()
-    xyz2 = endpoint
+    xyz1 = origin
+    xyz2 = scale_endpoint(endpoint)
+    print(xyz2)
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
 
     #if head length parameters are not specified
@@ -92,4 +98,11 @@ ARGUMENTS
 
     cmd.load_cgo(obj, name)
 
-cmd.extend('cgo_arrow', cgo_arrow)
+
+
+
+data = pd.read_csv("output.csv")
+print(data)
+print("Select a vector to be visualized")
+
+#cmd.extend('cgo_arrow', cgo_arrow)
