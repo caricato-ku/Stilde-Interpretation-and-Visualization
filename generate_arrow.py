@@ -73,4 +73,4 @@ def cgo_arrow(origin=[0,0,0], endpoint=[], radius=0.25, gap=0.0, hlength=-1, hra
         name = cmd.get_unused_name('arrow')
 
     cmd.load_cgo(obj, name)
-    cmd.extend('cgo_arrow', cgo_arrow)
+cmd.extend('cgo_arrow', cgo_arrow)
