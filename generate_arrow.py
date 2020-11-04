@@ -6,9 +6,7 @@ http://pymolwiki.org/index.php/cgo_arrow
 License: BSD-2-Clause
 '''
 
-#Insert vector pair
-#Scaling default should be one, allow for option to scaling, increase by factor of 5
-#scale separately
+
 #If selecting atoms, shift vectors according because vectors are based around origin
 #read vectors from file
 #Include sphere representing radius of S tilde - optional
@@ -36,9 +34,9 @@ def cgo_arrow(origin=[0,0,0], endpoint=[], radius=0.25, gap=0.0, hlength=-1, hra
     hlength, hradius = float(hlength), float(hradius)
 
     if type == 'electric':
-        color = 'blue'
-    if type == 'magnetic':
         color = 'red'
+    if type == 'magnetic':
+        color = 'blue'
     try:
         #if they are strings, splits color1 and color2 into list of strings
         color1, color2 = color.split()
