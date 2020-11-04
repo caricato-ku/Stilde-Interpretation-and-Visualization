@@ -1,6 +1,8 @@
 from pymol import cmd,preset,util
 import pandas as pd
 
+data = pd.read_csv(filename)
+
 def newLoad(filename):
     cmd.load(filename)
     # Everything ball and stick
@@ -34,10 +36,9 @@ def elec_mag(elec_end,mag_end,elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
     return
 cmd.extend("elec_mag",elec_mag)
 
-def select_vectors(filename, index):
-    data = pd.read_csv(filename)
-    elecVec = [data.iloc[index]['ElectricX'], data.iloc[index]['ElectricY'], data.iloc[index]['ElectricZ']]
-    magVec = [data.iloc[index]['MagneticX'], data.iloc[index]['MagneticY'], data.iloc[index]['MagneticZ']]
+def select_vectors(filename, index, df = data):
+    elecVec = [df.iloc[index]['ElectricX'], df.iloc[index]['ElectricY'], df.iloc[index]['ElectricZ']]
+    magVec = [df.iloc[index]['MagneticX'], df.iloc[index]['MagneticY'], df.iloc[index]['MagneticZ']]
     vecList = [elecVec, magVec]
     return vecList
 cmd.extend("select_vectors",select_vectors)
