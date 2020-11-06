@@ -1,7 +1,7 @@
 from pymol import cmd,preset,util
 import pandas as pd
 
-data = pd.read_csv(filename)
+data = pd.read_csv('output.csv')
 
 def newLoad(filename):
     cmd.load(filename)
@@ -38,7 +38,19 @@ def elec_mag(elec_end,mag_end,elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
     return
 cmd.extend("elec_mag",elec_mag)
 
-def select_vectors(filename, index, df = data):
+
+def elec_mag_fromAtom(elec_end,mag_end,elec_start='sele',mag_start='sele'):
+    elec_end=str_to_list(elec_end)
+    cgo_arrow(origin=elec_start,endpoint=elec_end,type="electric")
+
+    mag_end=str_to_list(mag_end)
+    cgo_arrow(origin=mag_start,endpoint=mag_end,type="magnetic")
+    return
+cmd.extend("elec_mag_fromAtom", elec_mag_fromAtom)
+
+
+def select_vectors(index, df = data):
+    index = int(index)
     elecVec = [df.iloc[index]['ElectricX'], df.iloc[index]['ElectricY'], df.iloc[index]['ElectricZ']]
     magVec = [df.iloc[index]['MagneticX'], df.iloc[index]['MagneticY'], df.iloc[index]['MagneticZ']]
     vecList = [elecVec, magVec]
