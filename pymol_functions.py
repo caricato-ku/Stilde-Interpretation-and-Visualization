@@ -1,7 +1,9 @@
 from pymol import cmd,preset,util
 import pandas as pd
 
-data = pd.read_csv('output.csv')
+def loadCSV(filename):
+    data = pd.read_csv(filename)
+cmd.extend("loadCSV", loadCSV)
 
 def newLoad(filename):
     cmd.load(filename)
