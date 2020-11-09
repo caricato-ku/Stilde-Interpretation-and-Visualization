@@ -24,6 +24,11 @@ def scale_endpoint(end, factor=5):
         end[i] = end[i]*factor
     return end
 
+def shift_vectors(start, atomCoords):
+    for i in range(len(start)):
+        start[i] += atomCoords[i]
+    return start
+
 def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1,  hradius=-1,
                type='electric', name=''):
 
@@ -34,8 +39,10 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
 
     if type == 'electric':
         color = 'red'
+        name = 'electric'
     if type == 'magnetic':
         color = 'blue'
+        name = 'magnetic'
     try:
         color1, color2 = color.split()
     except:
@@ -47,10 +54,14 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
         xyz1 = cmd.get_coords('sele', 1)
         xyz1 = xyz1.flatten()
         xyz1 = xyz1.tolist()
+        xyz2 = scale_endpoint(endpoint)
+        xyz2 = shift_vectors(xyz2, xyz1)
+
 
     if origin != 'sele':
         xyz1 = origin
-    xyz2 = scale_endpoint(endpoint)
+        xyz2 = scale_endpoint(endpoint)
+
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
 
     if hlength < 0:
