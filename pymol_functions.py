@@ -1,8 +1,12 @@
 from pymol import cmd,preset,util
 import pandas as pd
 
+
 def loadCSV(filename):
     data = pd.read_csv(filename)
+    if data.empty:
+        print("Dataframe is empty")
+    return data
 cmd.extend("loadCSV", loadCSV)
 
 def newLoad(filename):
@@ -29,11 +33,13 @@ def str_to_list(string,internalType="float"):
 
 def elec_mag(elec_end,mag_end,elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
 
-    elec_end=str_to_list(elec_end)
+    tempEndElec = elec_end.copy()
+    elec_end=str_to_list(tempEndElec)
     elec_start=str_to_list(elec_start)
     cgo_arrow(origin=elec_start,endpoint=elec_end,type="electric")
 
-    mag_end=str_to_list(mag_end)
+    tempEndMag = mag_end.copy()
+    mag_end=str_to_list(tempEndMag)
     mag_start=str_to_list(mag_start)
     cgo_arrow(origin=mag_start,endpoint=mag_end,type="magnetic")
 
@@ -42,10 +48,12 @@ cmd.extend("elec_mag",elec_mag)
 
 
 def elec_mag_fromAtom(elec_end,mag_end,elec_start='sele',mag_start='sele'):
-    elec_end=str_to_list(elec_end)
+    tempEndElec = elec_end.copy()
+    elec_end=str_to_list(tempEndElec)
     cgo_arrow(origin=elec_start,endpoint=elec_end,type="electric")
 
-    mag_end=str_to_list(mag_end)
+    tempEndMag = mag_end.copy()
+    mag_end=str_to_list(tempEndMag)
     cgo_arrow(origin=mag_start,endpoint=mag_end,type="magnetic")
     return
 cmd.extend("elec_mag_fromAtom", elec_mag_fromAtom)
