@@ -1,6 +1,8 @@
 from pymol import cmd,preset,util
 import pandas as pd
 
+#Keep track of times elec_mag is called
+count=1
 
 def loadCSV(filename):
     data = pd.read_csv(filename)
@@ -32,15 +34,19 @@ def str_to_list(string,internalType="float"):
 
 
 def elec_mag(elec_end,mag_end,elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
+    global count
     elec_end=str_to_list(elec_end)    
     if elec_start!='sele':
         elec_start=str_to_list(elec_start)
-    cgo_arrow(atom1=elec_start,endpoint=elec_end,type="electric")
+    #Use count to make a unique name for each arrow object,
+    #allows multiple elec_mags to be spawned
+    cgo_arrow(origin=elec_start,endpoint=elec_end,type="electric",name=str(count))
 
     mag_end=str_to_list(mag_end)
     if mag_start!='sele':
         mag_start=str_to_list(mag_start)
-    cgo_arrow(atom1=mag_start,endpoint=mag_end,type="magnetic")
+    cgo_arrow(origin=mag_start,endpoint=mag_end,type="magnetic",name=str(count))
+    count+=1
     return
 cmd.extend("elec_mag",elec_mag)
 

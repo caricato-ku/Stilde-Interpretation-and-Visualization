@@ -36,10 +36,10 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
 
     if type == 'electric':
         color = 'red'
-        name = 'electric'
+        name = 'electric'+name
     if type == 'magnetic':
         color = 'blue'
-        name = 'magnetic'
+        name = 'magnetic'+name
     try:
         color1, color2 = color.split()
     except:
