@@ -14,10 +14,7 @@ License: BSD-2-Clause
 #Add arc between vectors for angle
 
 from pymol import cmd, CmdException
-import argparse as ap
 from pymol.cgo import *
-import numpy as np
-import sys
 
 def scale_endpoint(end, factor=5):
     for i in range(len(end)):
@@ -39,10 +36,10 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
 
     if type == 'electric':
         color = 'red'
-        name = 'electric'
+        name = 'electric'+name
     if type == 'magnetic':
         color = 'blue'
-        name = 'magnetic'
+        name = 'magnetic'+name
     try:
         color1, color2 = color.split()
     except:
@@ -56,9 +53,7 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
         xyz1 = xyz1.tolist()
         xyz2 = scale_endpoint(endpoint)
         xyz2 = shift_vectors(xyz2, xyz1)
-
-
-    if origin != 'sele':
+    else:
         xyz1 = origin
         xyz2 = scale_endpoint(endpoint)
 
