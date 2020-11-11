@@ -14,19 +14,20 @@ License: BSD-2-Clause
 #Add arc between vectors for angle
 
 from pymol import cmd, CmdException
-import argparse as ap
 from pymol.cgo import *
-import numpy as np
-import sys
 
 def scale_endpoint(end, factor=5):
-    print(end)
     for i in range(len(end)):
         end[i] = end[i]*factor
     return end
 
-def cgo_arrow(origin=[0,0,0], endpoint=[], radius=0.25, gap=0.0, hlength=-1, hradius=-1,
-              color='blue', type='', name =''):
+def shift_vectors(start, atomCoords):
+    for i in range(len(start)):
+        start[i] += atomCoords[i]
+    return start
+
+def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1,  hradius=-1,
+               type='electric', name=''):
 
     from chempy import cpv
     #converting parameters to floats
@@ -35,28 +36,34 @@ def cgo_arrow(origin=[0,0,0], endpoint=[], radius=0.25, gap=0.0, hlength=-1, hra
 
     if type == 'electric':
         color = 'red'
+        name = 'electric'
     if type == 'magnetic':
         color = 'blue'
+        name = 'magnetic'
     try:
-        #if they are strings, splits color1 and color2 into list of strings
         color1, color2 = color.split()
     except:
         color1 = color2 = color
     color1 = list(cmd.get_color_tuple(color1))
     color2 = list(cmd.get_color_tuple(color2))
 
-    xyz1 = origin
-    xyz2 = scale_endpoint(endpoint)
+    if origin == 'sele':
+        xyz1 = cmd.get_coords('sele', 1)
+        xyz1 = xyz1.flatten()
+        xyz1 = xyz1.tolist()
+        xyz2 = scale_endpoint(endpoint)
+        xyz2 = shift_vectors(xyz2, xyz1)
+    else:
+        xyz1 = origin
+        xyz2 = scale_endpoint(endpoint)
+
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
 
-    #if head length parameters are not specified
     if hlength < 0:
         hlength = radius * 3.0
     if hradius < 0:
         hradius = hlength * 0.6
-    #if a gap is specified
     if gap:
-        #scales normal vector by a factor of the gap
         diff = cpv.scale(normal, gap)
         xyz1 = cpv.sub(xyz1, diff)
         xyz2 = cpv.add(xyz2, diff)
@@ -65,7 +72,6 @@ def cgo_arrow(origin=[0,0,0], endpoint=[], radius=0.25, gap=0.0, hlength=-1, hra
     obj = [cgo.CYLINDER] + xyz1 + xyz3 + [radius] + color1 + color1 + \
           [cgo.CONE] + xyz3 + xyz2 + [hradius, 0.0] + color1 + color2 + \
           [1.0, 0.0]
-
     if not name:
         name = cmd.get_unused_name('arrow')
 
