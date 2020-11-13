@@ -8,6 +8,8 @@ def loadCSV(filename):
     data = pd.read_csv(filename)
     if data.empty:
         print("Dataframe is empty")
+    else:
+        print(data[['S','Electric Magnitude', 'Magnetic Magnitude','Cosine of Angle']])
     return data
 cmd.extend("loadCSV", loadCSV)
 
