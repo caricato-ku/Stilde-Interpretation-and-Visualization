@@ -53,12 +53,12 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
         xyz1 = xyz1.flatten()
         xyz1 = xyz1.tolist()
         length=np.linalg.norm(np.array(endpoint)-np.array(xyz1))
-        xyz2 = scale_endpoint(endpoint)
+        xyz2 = scale_endpoint(endpoint,scaling)
         xyz2 = shift_vectors(xyz2, xyz1)
     else:
         xyz1 = origin
         length=np.linalg.norm(np.array(endpoint)-np.array(xyz1))
-        xyz2 = scale_endpoint(endpoint)
+        xyz2 = scale_endpoint(endpoint,scaling)
 
 
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
