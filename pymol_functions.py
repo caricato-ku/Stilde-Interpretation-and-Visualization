@@ -35,7 +35,7 @@ def str_to_list(string,internalType="float"):
    return newList
 
 
-def elec_mag(elec_end,mag_end,elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
+def elec_mag(elec_end,mag_end,scaling_factor=7,elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
     global count
     elec_end=str_to_list(elec_end)
     temp_elec_end = elec_end.copy()
@@ -43,22 +43,22 @@ def elec_mag(elec_end,mag_end,elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
         elec_start=str_to_list(elec_start)
     #Use count to make a unique name for each arrow object,
     #allows multiple elec_mags to be spawned
-    cgo_arrow(origin=elec_start,endpoint=temp_elec_end,type="electric",name=str(count))
+    cgo_arrow(origin=elec_start,endpoint=temp_elec_end,type="electric",name=str(count), scaling=scaling_factor)
 
     mag_end=str_to_list(mag_end)
     temp_mag_end = mag_end.copy()
     if mag_start!='sele':
         mag_start=str_to_list(mag_start)
-    cgo_arrow(origin=mag_start,endpoint=temp_mag_end,type="magnetic",name=str(count))
+    cgo_arrow(origin=mag_start,endpoint=temp_mag_end,type="magnetic",name=str(count),scaling=scaling_factor)
     count+=1
     return
 cmd.extend("elec_mag",elec_mag)
 
 
-def elec_mag_fromAtom(elec_end,mag_end,elec_start='sele',mag_start='sele'):
+def elec_mag_fromAtom(elec_end,mag_end, scale=7, elec_start='sele',mag_start='sele'):
     #Just calls the other function with appropriate args,
     #avoids repeating function body
-    elec_mag(elec_end,mag_end,elec_start=elec_start,mag_start=mag_start)
+    elec_mag(elec_end,mag_end,elec_start=elec_start,mag_start=mag_start, scaling_factor=scale)
     return
 cmd.extend("elec_mag_fromAtom", elec_mag_fromAtom)
 
