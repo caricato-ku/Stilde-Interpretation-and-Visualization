@@ -27,7 +27,7 @@ def shift_vectors(start, atomCoords):
     return start
 
 def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1,  hradius=-1,
-               type='electric', name=''):
+               type='electric', name='', scaling = 7):
 
     from chempy import cpv
     #converting parameters to floats
@@ -58,6 +58,7 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
         xyz1 = origin
         length=np.linalg.norm(np.array(endpoint)-np.array(xyz1))
         xyz2 = scale_endpoint(endpoint)
+
 
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
 
