@@ -51,11 +51,14 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
         xyz1 = cmd.get_coords('sele', 1)
         xyz1 = xyz1.flatten()
         xyz1 = xyz1.tolist()
-        xyz2 = scale_endpoint(endpoint, scaling)
+        length=np.linalg.norm(np.array(endpoint)-np.array(xyz1))
+        xyz2 = scale_endpoint(endpoint)
         xyz2 = shift_vectors(xyz2, xyz1)
     else:
         xyz1 = origin
-        xyz2 = scale_endpoint(endpoint, scaling)
+        length=np.linalg.norm(np.array(endpoint)-np.array(xyz1))
+        xyz2 = scale_endpoint(endpoint)
+
 
     normal = cpv.normalize(cpv.sub(xyz1, xyz2))
 
@@ -72,8 +75,18 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
     obj = [cgo.CYLINDER] + xyz1 + xyz3 + [radius] + color1 + color1 + \
           [cgo.CONE] + xyz3 + xyz2 + [hradius, 0.0] + color1 + color2 + \
           [1.0, 0.0]
+
+
+    ##Place pseudoatom with label at midpoint of vector
+    v0=np.array(xyz1)
+    v1=np.array(xyz2)
+    loc=(v0+v1)/2
+
     if not name:
         name = cmd.get_unused_name('arrow')
 
-    cmd.load_cgo(obj, name)
+    cmd.load_cgo(obj, f"vec_{name}")
+    ##For some reason pos fails, but it just happens to put it where I want
+    cmd.pseudoatom(f"lab_{name}",name="lab_"+name,label=f"{length:.2f}")#,pos=loc
+    cmd.group(name,members=f"lab_{name} vec_{name}")
 cmd.extend('cgo_arrow', cgo_arrow)

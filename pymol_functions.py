@@ -1,5 +1,6 @@
 from pymol import cmd,preset,util
 import pandas as pd
+import numpy as np
 
 #Keep track of times elec_mag is called
 count=1
@@ -49,7 +50,10 @@ def elec_mag(elec_end,mag_end,scaling_factor=7,elec_start=[0.0,0.0,0.0],mag_star
     temp_mag_end = mag_end.copy()
     if mag_start!='sele':
         mag_start=str_to_list(mag_start)
+
     cgo_arrow(origin=mag_start,endpoint=temp_mag_end,type="magnetic",name=str(count),scaling=scaling_factor)
+    cmd.group(f"stilde{count}",members=f"electric{count} magnetic{count}")
+    
     count+=1
     return
 cmd.extend("elec_mag",elec_mag)
