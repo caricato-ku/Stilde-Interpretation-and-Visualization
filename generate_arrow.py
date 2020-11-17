@@ -15,6 +15,7 @@ License: BSD-2-Clause
 
 from pymol import cmd, CmdException
 from pymol.cgo import *
+import numpy as np
 
 def scale_endpoint(end, factor=5):
     for i in range(len(end)):
