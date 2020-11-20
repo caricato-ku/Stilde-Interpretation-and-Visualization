@@ -1,6 +1,7 @@
 from pymol import cmd,preset,util
 import pandas as pd
 import numpy as np
+from pymol.cgo import *
 
 #Keep track of times elec_mag is called
 count=1
@@ -36,7 +37,8 @@ def str_to_list(string,internalType="float"):
    return newList
 
 
-def elec_mag(elec_end,mag_end,elec_scaling_factor=7, mag_scaling_factor=7, elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
+def elec_mag(elec_end,mag_end,elec_scaling_factor=7, mag_scaling_factor=7, 
+             elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
     global count
     elec_end=str_to_list(elec_end)
     temp_elec_end = elec_end.copy()
@@ -67,10 +69,6 @@ def elec_mag_fromAtom(elec_end,mag_end, elec_scale=7, mag_scale=7, elec_start='s
 cmd.extend("elec_mag_fromAtom", elec_mag_fromAtom)
 
 
-#Function can't (or at least shouldn't) access variables from inside
-#other functions.
-##If you want to make this default, can set df=None and call
-##loadCSV with a set file in this case.
 def select_vectors(index, df):
     index = int(index)
     cart=['X','Y','Z']
@@ -81,10 +79,6 @@ def select_vectors(index, df):
     return vecList
 cmd.extend("select_vectors",select_vectors)
 
-#Want a worker function that automates this more
-#e.g. calls loadCSV, then runs a loop of select_vectors and elec_mag
-#for a particular list of indices.
-
 def multiple_vectors(indices, df, fromAtom=False):
     for index in indices:
         vec = select_vectors(index, df)
@@ -94,3 +88,13 @@ def multiple_vectors(indices, df, fromAtom=False):
             elec_mag(vec[0], vec[1])
 
 cmd.extend("multiple_vectors", multiple_vectors)
+
+def createSphere(pos, radius=10.0, color = 'Yellow',transparency=.5):
+    cmd.set("cgo_sphere_quality", 4)
+    radius=float(radius)
+    pos = str_to_list(pos)
+    obj = [cgo.SPHERE] + pos + [radius]
+    cmd.load_cgo(obj,'s1',0)
+    cmd.color(color,selection='s1')
+    cmd.set("cgo_transparency",value=transparency,selection="s1")
+cmd.extend("createSphere",createSphere)
