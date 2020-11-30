@@ -94,3 +94,13 @@ def multiple_vectors(indices, df, fromAtom=False):
             elec_mag(vec[0], vec[1])
 
 cmd.extend("multiple_vectors", multiple_vectors)
+
+def createSphere(pos, radius=1.0, color = 'Yellow',transparency=.5):
+    cmd.set("cgo_sphere_quality", 4)
+    radius=float(radius)
+    pos = str_to_list(pos)
+    obj = [cgo.SPHERE] + pos + [radius]
+    cmd.load_cgo(obj,'s1',0)
+    cmd.color(color,selection='s1')
+    cmd.set("cgo_transparency",value=transparency,selection="s1")
+cmd.extend("createSphere",createSphere)

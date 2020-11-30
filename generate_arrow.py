@@ -27,7 +27,7 @@ def shift_vectors(start, atomCoords):
         start[i] += atomCoords[i]
     return start
 
-def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1,  hradius=-1,
+def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1,  hradius=-1,
                type='electric', name='', scaling = 7):
 
     from chempy import cpv
