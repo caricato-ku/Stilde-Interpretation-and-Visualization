@@ -91,12 +91,8 @@ cmd.extend("select_vectors",select_vectors)
 
 def multiple_vectors(indices, df, fromAtom=False):
     for index in indices:
-        vec = select_vectors(index, df)
-        if fromAtom == True:
-            elec_mag_fromAtom(vec[0], vec[1])
-        else:
-            elec_mag(vec[0], vec[1])
-
+        vec = select_vectors(index, df, fromAtom)
+        
 cmd.extend("multiple_vectors", multiple_vectors)
 
 def createSphere(pos, radius=1.0, color = 'Yellow',transparency=.5):
