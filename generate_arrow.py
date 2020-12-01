@@ -52,7 +52,7 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1, 
         xyz1 = cmd.get_coords('sele', 1)
         xyz1 = xyz1.flatten()
         xyz1 = xyz1.tolist()
-        length=np.linalg.norm(np.array(endpoint)-np.array(xyz1))
+        length=np.linalg.norm(np.array(endpoint))
         xyz2 = scale_endpoint(endpoint,scaling)
         xyz2 = shift_vectors(xyz2, xyz1)
     else:
