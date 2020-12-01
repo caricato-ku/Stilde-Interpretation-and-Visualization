@@ -71,13 +71,17 @@ cmd.extend("elec_mag_fromAtom", elec_mag_fromAtom)
 #other functions.
 ##If you want to make this default, can set df=None and call
 ##loadCSV with a set file in this case.
-def select_vectors(index, df):
+def select_vectors(index, df, fromAtom=False):
     index = int(index)
     cart=['X','Y','Z']
     ##Uses list comprehension to express more succinctly
     elecVec = [df.iloc[index]['Electric'+x] for x in cart]
     magVec = [df.iloc[index]['Magnetic'+x] for x in cart]
     vecList = [elecVec, magVec]
+    if fromAtom is False:
+        elec_mag(elecVec, magVec)
+    else:
+        elec_mag_fromAtom(elecVec,magVec)
     return vecList
 cmd.extend("select_vectors",select_vectors)
 
