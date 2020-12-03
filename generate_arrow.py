@@ -18,11 +18,25 @@ from pymol.cgo import *
 import numpy as np
 
 def scale_endpoint(end, factor=5):
+    '''Arguments:
+       end: a list of floats representing the endpoint of the vectors
+       
+       factor: The scaling factor for end to be increased by - default 5
+
+       Return value: Modified end vector
+     '''
     for i in range(len(end)):
         end[i] = end[i]*factor
     return end
 
 def shift_vectors(start, atomCoords):
+    '''Arguments:
+       start: a list of floats representing the starting point of the vector
+
+       atomCoords: the coordinates of the atom from which the vector will originate
+
+       Return value: Modified start vector
+    '''
     for i in range(len(start)):
         start[i] += atomCoords[i]
     return start
@@ -30,6 +44,30 @@ def shift_vectors(start, atomCoords):
 def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1,  hradius=-1,
                type='electric', name='', scaling = 7):
 
+    '''Arguments:
+       origin: List of floats representing origin point of vector to be drawn
+
+       endpoint: List of floats representing endpoint of vector to be drawn
+
+       color: Color of arrow - default blue
+
+       radius: Radius of cylinder portion of arrow - default .1
+
+       gap: Specifies a gap between the head and body of the arrow, if desired - default 0
+
+       hlength: Length of the head of the arrow - default -1
+
+       hradius: Radius of the head of the arrow - default -1
+
+       type: Type of vector being drawn, electric or magnetic - defaults to electric
+
+       name: Name to be shown in PyMol for the cgo object - defaults to blank
+
+       scaling: Scaling factor that is passed to scale_endpoint function - defaults to 7
+
+
+       Return value: None
+    '''
     from chempy import cpv
     #converting parameters to floats
     radius, gap = float(radius), float(gap)
