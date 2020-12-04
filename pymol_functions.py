@@ -130,10 +130,10 @@ def elec_mag_fromAtom(elec_end,mag_end, elec_scale=7, mag_scale=7, elec_start='s
     :param mag_scaling_factor: Scaling factor for magnetic vector
     :type mag_scaling_factor: int, optional - defaults to 7
 
-    :param elec_start: Starting point for electric vector - defaults to coordinate origin [0,0,0]
+    :param elec_start: Starting point for electric vector - defaults to selected atom xyz coordinates
     :type elec_start: List of floats
 
-    :param mag_start: Starting point for magnetic vector - defaults to coordinate origin [0,0,0]
+    :param mag_start: Starting point for magnetic vector - defaults to selected atom xyz coordinates
     :type mag_start: List of floats
 
 
