@@ -16,6 +16,8 @@ import sphinx
 import mock
 sys.path.insert(0, os.path.abspath('..'))
 MOCK_MODULES = ['numpy','pymol','pandas','argparse','pathlib']
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = mock.Mock()
 
 # -- Project information -----------------------------------------------------
 
