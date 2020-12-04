@@ -1,5 +1,6 @@
 
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html>
   <head>
@@ -7,30 +8,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>generate_arrow module &#8212; S-tilde Interpretation and Visualization  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
+    <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pymol_functions module" href="pymol_functions.html" />
     <link rel="prev" title="Stilde-Interpretation-and-Visualization" href="modules.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pymol_functions.html" title="pymol_functions module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Stilde-Interpretation-and-Visualization"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">S-tilde Interpretation and Visualization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">Stilde-Interpretation-and-Visualization</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">generate_arrow module</a></li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="module-generate_arrow">
@@ -43,78 +61,87 @@
 <dl class="py function">
 <dt id="generate_arrow.cgo_arrow">
 <code class="sig-prename descclassname">generate_arrow.</code><code class="sig-name descname">cgo_arrow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">origin</span></em>, <em class="sig-param"><span class="n">endpoint</span></em>, <em class="sig-param"><span class="n">color</span><span class="o">=</span><span class="default_value">'blue'</span></em>, <em class="sig-param"><span class="n">radius</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">gap</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">hlength</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">hradius</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">type</span><span class="o">=</span><span class="default_value">'electric'</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">scaling</span><span class="o">=</span><span class="default_value">7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_arrow.cgo_arrow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Arguments:
-origin: List of floats representing origin point of vector to be drawn</p>
-<p>endpoint: List of floats representing endpoint of vector to be drawn</p>
-<p>color: Color of arrow - default blue</p>
-<p>radius: Radius of cylinder portion of arrow - default .1</p>
-<p>gap: Specifies a gap between the head and body of the arrow, if desired - default 0</p>
-<p>hlength: Length of the head of the arrow - default -1</p>
-<p>hradius: Radius of the head of the arrow - default -1</p>
-<p>type: Type of vector being drawn, electric or magnetic - defaults to electric</p>
-<p>name: Name to be shown in PyMol for the cgo object - defaults to blank</p>
-<p>scaling: Scaling factor that is passed to scale_endpoint function - defaults to 7</p>
-<p>Return value: None</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>origin</strong> (<em>List of floats</em>) – List representing origin point of vector to be drawn</p></li>
+<li><p><strong>endpoint</strong> (<em>List of floats</em>) – List representing endpoint of vector to be drawn</p></li>
+<li><p><strong>color</strong> (<em>String</em><em>, </em><em>optional - default blue</em>) – Color of arrow</p></li>
+<li><p><strong>radius</strong> (<em>Float</em><em>, </em><em>optional - default .1</em>) – Radius of cylinder portion of arrow</p></li>
+<li><p><strong>gap</strong> (<em>Float</em><em>, </em><em>optional - default 0</em>) – Specifies a gap between the head and body of the arrow, if desired</p></li>
+<li><p><strong>hlength</strong> (<em>Float</em><em>, </em><em>optional - default -1</em>) – Length of the head of the arrow</p></li>
+<li><p><strong>hradius</strong> (<em>Float</em><em>, </em><em>optional - default -1</em>) – Radius of the head of the arrow</p></li>
+<li><p><strong>type</strong> (<em>String</em><em>, </em><em>optional - default electric</em>) – Type of vector being drawn, electric or magnetic</p></li>
+<li><p><strong>name</strong> (<em>String</em><em>, </em><em>optional - default blank</em>) – Name to be shown in PyMol for the cgo object</p></li>
+<li><p><strong>scaling</strong> (<em>Int</em><em>, </em><em>optional - default 7</em>) – Scaling factor that is passed to scale_endpoint function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="generate_arrow.scale_endpoint">
 <code class="sig-prename descclassname">generate_arrow.</code><code class="sig-name descname">scale_endpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">end</span></em>, <em class="sig-param"><span class="n">factor</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_arrow.scale_endpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Arguments:
-end: a list of floats representing the endpoint of the vectors</p>
-<p>factor: The scaling factor for end to be increased by - default 5</p>
-<p>Return value: Modified end vector</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>end</strong> (<em>List of floats</em>) – A list representing the endpoint of the vectors</p></li>
+<li><p><strong>factor</strong> (<em>Int</em><em>, </em><em>optional - default 5</em>) – The scaling factor for end to be increased by</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Modified end vector</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List of floats</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="generate_arrow.shift_vectors">
 <code class="sig-prename descclassname">generate_arrow.</code><code class="sig-name descname">shift_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">atomCoords</span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_arrow.shift_vectors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Arguments:
-start: a list of floats representing the starting point of the vector</p>
-<p>atomCoords: the coordinates of the atom from which the vector will originate</p>
-<p>Return value: Modified start vector</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>List of floats</em>) – A list representing the starting point of the vector</p></li>
+<li><p><strong>atomCoords</strong> (<em>List of floats</em>) – The coordinates of the atom from which the vector will originate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Modified start vector</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List of floats</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 
 
+            <div class="clearer"></div>
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">S-tilde Interpretation and Visualization</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Stilde-Interpretation-and-Visualization</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">generate_arrow module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pymol_functions.html">pymol_functions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sorting.html">sorting module</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">Stilde-Interpretation-and-Visualization</a><ul>
-      <li>Previous: <a href="modules.html" title="previous chapter">Stilde-Interpretation-and-Visualization</a></li>
-      <li>Next: <a href="pymol_functions.html" title="next chapter">pymol_functions module</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">Stilde-Interpretation-and-Visualization</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="pymol_functions.html"
+                        title="next chapter">pymol_functions module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/generate_arrow.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -125,32 +152,33 @@ start: a list of floats representing the starting point of the vector</p>
     </div>
 </div>
 <script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2020, Zack Khazraeinazmpour.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/generate_arrow.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pymol_functions.html" title="pymol_functions module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Stilde-Interpretation-and-Visualization"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">S-tilde Interpretation and Visualization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >Stilde-Interpretation-and-Visualization</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">generate_arrow module</a></li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Zack Khazraeinazmpour.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.3.1.
+    </div>
   </body>
 </html>

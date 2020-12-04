@@ -6,15 +6,16 @@ import numpy as np
 count=1
 
 def loadCSV(filename):
-    '''
+    """
     Loads and display a CSV file via Panda dataframe
 
-    Arguments:
-        filename (string): Name of the file to be opened
+    :param filename: Name of the file to be opened
+    :type filename: string
 
 
-   Return value (dataframe): Dataframe of the CSV opened
-   '''
+    :return: Dataframe of the CSV opened
+    :rtype: Dataframe
+   """
     data = pd.read_csv(filename)
     if data.empty:
         print("Dataframe is empty")
@@ -29,15 +30,13 @@ cmd.extend("loadCSV", loadCSV)
 
 def newLoad(filename):
 
-    '''
+    """
     Loads a new molecule file into PyMol, setting carbons to gray and using ball and stick representation
 
-    Arguments:
-        filename (string): Name of molecule file to be opened
+    :param filename: Name of molecule file to be opened
 
-
-        Return value: None
-        '''
+    :return: None
+    """
     cmd.load(filename)
     # Everything ball and stick
     preset.ball_and_stick(selection="all", mode=1)
@@ -51,12 +50,16 @@ cmd.extend("newLoad",newLoad)
 
 
 def str_to_list(string,internalType="float"):
-    '''
-    Arguments:
-        string (string): String object to be converted to list of floats
-        internalType (string): String indicating the type of list to be converted to
-        Return value (list): Converted list of objects
-    '''
+    """
+        :param string: String object to be converted to list of floats
+        :type string: string
+
+        :param internalType: String indicating the type of list to be converted to
+        :type internalType: string (,optional -) defaults to float
+
+        :return: Converted list of objectss
+        :rtype: List of floats
+    """
     if type(string) is list:
        return string
     newList=string.strip('][').split(',')
@@ -65,25 +68,30 @@ def str_to_list(string,internalType="float"):
     return newList
 
 def elec_mag(elec_end,mag_end,elec_scaling_factor=7, mag_scaling_factor=7, elec_start=[0.0,0.0,0.0],mag_start=[0.0,0.0,0.0]):
-    '''
+    """
     Main driver function for drawing arrows in PyMol. Calls cgo_arrow function with correct parameters
 
-    Arguments:
-        elec_end (list of floats): Endpoint of electric vector
+    :param elec_end: Endpoint of electric vector
+    :type elec_end: List of floats
 
-        mag_end (list of floats): Endpoint of magnetic vector
+    :param mag_end: Endpoint of magnetic vector
+    :type mag_end: List of floats
 
-        elec_scaling_factor (int): Scaling factor for electric vector
+    :param elec_scaling_factor: Scaling factor for electric vector
+    :type elec_scaling_factor: int, optional - defaults to 7
 
-        mag_scaling_factor (int): Scaling factor for magnetic vector
+    :param mag_scaling_factor: Scaling factor for magnetic vector
+    :type mag_scaling_factor: int, optional - defaults to 7
 
-        elec_start (list of floats): Starting point for electric vector - defaults to coordinate origin [0,0,0]
+    :param elec_start: Starting point for electric vector - defaults to coordinate origin [0,0,0]
+    :type elec_start: List of floats
 
-        mag_start (list of floats): Starting point for magnetic vector - defaults to coordinate origin [0,0,0]
+    :param mag_start: Starting point for magnetic vector - defaults to coordinate origin [0,0,0]
+    :type mag_start: List of floats
 
 
-        Return value: None
-        '''
+    :return: None
+        """
     global count
     elec_end=str_to_list(elec_end)
     temp_elec_end = elec_end.copy()
@@ -107,25 +115,30 @@ cmd.extend("elec_mag",elec_mag)
 
 
 def elec_mag_fromAtom(elec_end,mag_end, elec_scale=7, mag_scale=7, elec_start='sele',mag_start='sele'):
-    '''
+    """
     Similar functionality to elec_mag, but draws arrow using atom as origin point
 
-    Arguments:
-        elec_end (list of floats): Endpoint of electric vector
+    :param elec_end: Endpoint of electric vector
+    :type elec_end: List of floats
 
-        mag_end (list of floats): Endpoint of magnetic vector
+    :param mag_end: Endpoint of magnetic vector
+    :type mag_end: List of floats
 
-        elec_scale (int): Scaling factor for electric vector
+    :param elec_scaling_factor: Scaling factor for electric vector
+    :type elec_scaling_factor: int, optional - defaults to 7
 
-        mag_scale (int): Scaling factor for magnetic vector
+    :param mag_scaling_factor: Scaling factor for magnetic vector
+    :type mag_scaling_factor: int, optional - defaults to 7
 
-        elec_start (list of floats): Starting point for electric vector - defaults to coordinate origin [0,0,0]
+    :param elec_start: Starting point for electric vector - defaults to coordinate origin [0,0,0]
+    :type elec_start: List of floats
 
-        mag_start (list of floats): Starting point for magnetic vector - defaults to coordinate origin [0,0,0]
+    :param mag_start: Starting point for magnetic vector - defaults to coordinate origin [0,0,0]
+    :type mag_start: List of floats
 
 
-        Return value: None
-    '''
+    :return: None
+    """
     #Just calls the other function with appropriate args,
     #avoids repeating function body
     elec_mag(elec_end,mag_end,elec_start=elec_start,mag_start=mag_start, elec_scaling_factor=elec_scale, mag_scaling_factor=mag_scale)
@@ -138,19 +151,22 @@ cmd.extend("elec_mag_fromAtom", elec_mag_fromAtom)
 ##If you want to make this default, can set df=None and call
 ##loadCSV with a set file in this case.
 def select_vectors(index, df, fromAtom=False):
-    '''
+    """
     Pulls vector data from dataframe based on a given index. Automatically calls elec_mag to draw arrows
 
-    Arguments:
-    index (int): Index of dataframe where vector data will be selected from
+    :param index: Index of dataframe where vector data will be selected from
+    :type index: List of ints
 
-    df (Dataframe): Dataframe containing vector data loaded previously
+    :param df: Dataframe containing vector data loaded previously
+    :type df: Dataframe
 
-    fromAtom (bool): Boolean indicating whether or not the vector will be drawn using an atom as origin
+    :param fromAtom: Boolean indicating whether or not the vector will be drawn using an atom as origin, defaults to False
+    :type fromAtom: Boolean
 
 
-    Return value: List of lists containing electric vector at index 0, magnetic vector at index 1
-    '''
+    :return: List of lists containing electric vector at index 0, magnetic vector at index 1
+    :rtype: List of ints
+    """
     index = int(index)
     cart=['X','Y','Z']
     ##Uses list comprehension to express more succinctly
@@ -170,20 +186,20 @@ cmd.extend("select_vectors",select_vectors)
 
 def multiple_vectors(indices, df, fromAtom=False):
 
-    '''
+    """
     Similar functionality to select_vectors, but calls select_vectors in a loop
     for a given list of indices to draw multiple arrows
 
-    Arguments:
+    :param indices: Indices of dataframe where vector data will be selected from
+    :type index: List of ints
 
-        indices (List of int): Indices of dataframe where vector data will be selected from
+    :param df: Dataframe containing vector data loaded previously
+    :type df: Dataframe
 
-        df (Dataframe): Dataframe containing vector data loaded previously
-
-        fromAtom (bool): Boolean indicating whether or not the vector will be drawn using an atom as origin
-
-        Return value: None
-    '''
+    :param fromAtom: Boolean indicating whether or not the vector will be drawn using an atom as origin, defaults to False
+    :type fromAtom: Boolean
+    :return: None
+    """
 
     for index in indices:
         vec = select_vectors(index, df, fromAtom)
@@ -192,21 +208,23 @@ cmd.extend("multiple_vectors", multiple_vectors)
 
 def createSphere(pos, radius=1.0, color = 'Yellow',transparency=.5):
 
-    '''
+    """
     Draws a sphere representative of s-tilde magnitude
 
-    Arguments:
+    :param pos: Indicates the x,y,z coordinates for the sphere to be drawn at
+    :type pos: List of floats
 
-    pos (List of floats): Indicates the x,y,z coordinates for the sphere to be drawn at
+    :param radius: Radius of sphere - default 1.0
+    :type radius: Float
 
-    radius (Float): Radius of sphere - default 1.0
+    :param color: Color of sphere - default yellow
+    :type color: String
 
-    color (string): Color of sphere - default yellow
-
-    transparency (Float): transparency value of sphere - default .5
+    :param transparency: transparency value of sphere - default .5
+    :type transparency: Float
 
     Return value: None
-    '''
+    """
     cmd.set("cgo_sphere_quality", 4)
     radius=float(radius)
     pos = str_to_list(pos)

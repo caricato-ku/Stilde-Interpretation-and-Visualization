@@ -5,6 +5,8 @@ import pandas as pd
 import argparse as ap
 from pathlib import Path
 
+
+
 ##Read file as mandatory argument, error if not given.
 ##Read output as optional with -o flag, "output.csv" is default
 ##Can get description of input by calling with -h

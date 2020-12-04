@@ -1,5 +1,6 @@
 
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html>
   <head>
@@ -7,71 +8,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pymol_functions module &#8212; S-tilde Interpretation and Visualization  documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
+    <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="sorting module" href="sorting.html" />
     <link rel="prev" title="generate_arrow module" href="generate_arrow.html" />
-
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
   </head><body>
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sorting.html" title="sorting module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="generate_arrow.html" title="generate_arrow module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">S-tilde Interpretation and Visualization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">Stilde-Interpretation-and-Visualization</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pymol_functions module</a></li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-
-
           <div class="body" role="main">
-
+            
   <div class="section" id="module-pymol_functions">
 <span id="pymol-functions-module"></span><h1>pymol_functions module<a class="headerlink" href="#module-pymol_functions" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="pymol_functions.createSphere">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">createSphere</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">radius</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">color</span><span class="o">=</span><span class="default_value">'Yellow'</span></em>, <em class="sig-param"><span class="n">transparency</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.createSphere" title="Permalink to this definition">¶</a></dt>
-
 <dd><p>Draws a sphere representative of s-tilde magnitude</p>
-<p>Arguments:</p>
-<table>
-<tr>
-  <td><p>pos (List of floats): Indicates the x,y,z coordinates for the sphere to be drawn at</p></td>
-</tr>
-<tr>
-  <td><p>radius (Float): Radius of sphere - default 1.0</p></td>
-</tr>
-<tr>
-  <td><p>color (string): Color of sphere - default yellow</p></td>
-</tr>
-<tr>
-  <td><p>transparency (Float): transparency value of sphere - default .5</p></td>
-</tr>
-<tr>
-  <td><p>Return value: None</p></td>
-</tr>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>List of floats</em>) – Indicates the x,y,z coordinates for the sphere to be drawn at</p></li>
+<li><p><strong>radius</strong> (<em>Float</em>) – Radius of sphere - default 1.0</p></li>
+<li><p><strong>color</strong> (<em>String</em>) – Color of sphere - default yellow</p></li>
+<li><p><strong>transparency</strong> (<em>Float</em>) – transparency value of sphere - default .5</p></li>
+</ul>
+</dd>
+</dl>
+<p>Return value: None</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="pymol_functions.elec_mag">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">elec_mag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elec_end</span></em>, <em class="sig-param"><span class="n">mag_end</span></em>, <em class="sig-param"><span class="n">elec_scaling_factor</span><span class="o">=</span><span class="default_value">7</span></em>, <em class="sig-param"><span class="n">mag_scaling_factor</span><span class="o">=</span><span class="default_value">7</span></em>, <em class="sig-param"><span class="n">elec_start</span><span class="o">=</span><span class="default_value">[0.0, 0.0, 0.0]</span></em>, <em class="sig-param"><span class="n">mag_start</span><span class="o">=</span><span class="default_value">[0.0, 0.0, 0.0]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.elec_mag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main driver function for drawing arrows in PyMol. Calls cgo_arrow function with correct parameters</p>
-<dl>
-<dt>Arguments:</dt><dd><p>elec_end (list of floats): Endpoint of electric vector</p>
-<p>mag_end (list of floats): Endpoint of magnetic vector</p>
-<p>elec_scaling_factor (int): Scaling factor for electric vector</p>
-<p>mag_scaling_factor (int): Scaling factor for magnetic vector</p>
-<p>elec_start (list of floats): Starting point for electric vector - defaults to coordinate origin [0,0,0]</p>
-<p>mag_start (list of floats): Starting point for magnetic vector - defaults to coordinate origin [0,0,0]</p>
-<p>Return value: None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elec_end</strong> (<em>List of floats</em>) – Endpoint of electric vector</p></li>
+<li><p><strong>mag_end</strong> (<em>List of floats</em>) – Endpoint of magnetic vector</p></li>
+<li><p><strong>elec_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for electric vector</p></li>
+<li><p><strong>mag_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for magnetic vector</p></li>
+<li><p><strong>elec_start</strong> (<em>List of floats</em>) – Starting point for electric vector - defaults to coordinate origin [0,0,0]</p></li>
+<li><p><strong>mag_start</strong> (<em>List of floats</em>) – Starting point for magnetic vector - defaults to coordinate origin [0,0,0]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -80,14 +95,19 @@
 <dt id="pymol_functions.elec_mag_fromAtom">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">elec_mag_fromAtom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">elec_end</span></em>, <em class="sig-param"><span class="n">mag_end</span></em>, <em class="sig-param"><span class="n">elec_scale</span><span class="o">=</span><span class="default_value">7</span></em>, <em class="sig-param"><span class="n">mag_scale</span><span class="o">=</span><span class="default_value">7</span></em>, <em class="sig-param"><span class="n">elec_start</span><span class="o">=</span><span class="default_value">'sele'</span></em>, <em class="sig-param"><span class="n">mag_start</span><span class="o">=</span><span class="default_value">'sele'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.elec_mag_fromAtom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similar functionality to elec_mag, but draws arrow using atom as origin point</p>
-<dl>
-<dt>Arguments:</dt><dd><p>elec_end (list of floats): Endpoint of electric vector</p>
-<p>mag_end (list of floats): Endpoint of magnetic vector</p>
-<p>elec_scale (int): Scaling factor for electric vector</p>
-<p>mag_scale (int): Scaling factor for magnetic vector</p>
-<p>elec_start (list of floats): Starting point for electric vector - defaults to coordinate origin [0,0,0]</p>
-<p>mag_start (list of floats): Starting point for magnetic vector - defaults to coordinate origin [0,0,0]</p>
-<p>Return value: None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elec_end</strong> (<em>List of floats</em>) – Endpoint of electric vector</p></li>
+<li><p><strong>mag_end</strong> (<em>List of floats</em>) – Endpoint of magnetic vector</p></li>
+<li><p><strong>elec_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for electric vector</p></li>
+<li><p><strong>mag_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for magnetic vector</p></li>
+<li><p><strong>elec_start</strong> (<em>List of floats</em>) – Starting point for electric vector - defaults to coordinate origin [0,0,0]</p></li>
+<li><p><strong>mag_start</strong> (<em>List of floats</em>) – Starting point for magnetic vector - defaults to coordinate origin [0,0,0]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -95,14 +115,18 @@
 <dl class="py function">
 <dt id="pymol_functions.loadCSV">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">loadCSV</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.loadCSV" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Loads and display a CSV file via Panda dataframe</p>
-<dl class="simple">
-<dt>Arguments:</dt><dd><p>filename (string): Name of the file to be opened</p>
+<dd><p>Loads and display a CSV file via Panda dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – Name of the file to be opened</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe of the CSV opened</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dataframe</p>
 </dd>
 </dl>
-</div></blockquote>
-<p>Return value (dataframe): Dataframe of the CSV opened</p>
 </dd></dl>
 
 <dl class="py function">
@@ -110,22 +134,30 @@
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">multiple_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indices</span></em>, <em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">fromAtom</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.multiple_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Similar functionality to select_vectors, but calls select_vectors in a loop
 for a given list of indices to draw multiple arrows</p>
-<p>Arguments:</p>
-<blockquote>
-<div><p>indices (List of int): Indices of dataframe where vector data will be selected from</p>
-<p>df (Dataframe): Dataframe containing vector data loaded previously</p>
-<p>fromAtom (bool): Boolean indicating whether or not the vector will be drawn using an atom as origin</p>
-<p>Return value: None</p>
-</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> – Indices of dataframe where vector data will be selected from</p></li>
+<li><p><strong>df</strong> (<em>Dataframe</em>) – Dataframe containing vector data loaded previously</p></li>
+<li><p><strong>fromAtom</strong> (<em>Boolean</em>) – Boolean indicating whether or not the vector will be drawn using an atom as origin, defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="pymol_functions.newLoad">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">newLoad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.newLoad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a new molecule file into PyMol, setting carbons to gray and using ball and stick representation</p>
-<dl>
-<dt>Arguments:</dt><dd><p>filename (string): Name of molecule file to be opened</p>
-<p>Return value: None</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – Name of molecule file to be opened</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -134,20 +166,38 @@ for a given list of indices to draw multiple arrows</p>
 <dt id="pymol_functions.select_vectors">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">select_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">fromAtom</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.select_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pulls vector data from dataframe based on a given index. Automatically calls elec_mag to draw arrows</p>
-<p>Arguments:
-index (int): Index of dataframe where vector data will be selected from</p>
-<p>df (Dataframe): Dataframe containing vector data loaded previously</p>
-<p>fromAtom (bool): Boolean indicating whether or not the vector will be drawn using an atom as origin</p>
-<p>Return value: List of lists containing electric vector at index 0, magnetic vector at index 1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> (<em>List of ints</em>) – Index of dataframe where vector data will be selected from</p></li>
+<li><p><strong>df</strong> (<em>Dataframe</em>) – Dataframe containing vector data loaded previously</p></li>
+<li><p><strong>fromAtom</strong> (<em>Boolean</em>) – Boolean indicating whether or not the vector will be drawn using an atom as origin, defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of lists containing electric vector at index 0, magnetic vector at index 1</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List of ints</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="pymol_functions.str_to_list">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">str_to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">internalType</span><span class="o">=</span><span class="default_value">'float'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.str_to_list" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Arguments:</dt><dd><p>string (string): String object to be converted to list of floats
-internalType (string): String indicating the type of list to be converted to
-Return value (list): Converted list of objects</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<em>string</em>) – String object to be converted to list of floats</p></li>
+<li><p><strong>internalType</strong> (<em>string</em><em> (</em><em>,</em><em>optional -</em><em>) </em><em>defaults to float</em>) – String indicating the type of list to be converted to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Converted list of objectss</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List of floats</p>
 </dd>
 </dl>
 </dd></dl>
@@ -155,43 +205,25 @@ Return value (list): Converted list of objects</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
-
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">S-tilde Interpretation and Visualization</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Stilde-Interpretation-and-Visualization</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="generate_arrow.html">generate_arrow module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">pymol_functions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sorting.html">sorting module</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">Stilde-Interpretation-and-Visualization</a><ul>
-      <li>Previous: <a href="generate_arrow.html" title="previous chapter">generate_arrow module</a></li>
-      <li>Next: <a href="sorting.html" title="next chapter">sorting module</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="generate_arrow.html"
+                        title="previous chapter">generate_arrow module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sorting.html"
+                        title="next chapter">sorting module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pymol_functions.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -202,32 +234,33 @@ Return value (list): Converted list of objects</p>
     </div>
 </div>
 <script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2020, Zack Khazraeinazmpour.
-
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-
-      |
-      <a href="_sources/pymol_functions.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sorting.html" title="sorting module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="generate_arrow.html" title="generate_arrow module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">S-tilde Interpretation and Visualization  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >Stilde-Interpretation-and-Visualization</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pymol_functions module</a></li> 
+      </ul>
     </div>
-
-
-
-
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Zack Khazraeinazmpour.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.3.1.
+    </div>
   </body>
 </html>
