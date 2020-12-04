@@ -18,18 +18,72 @@ from pymol.cgo import *
 import numpy as np
 
 def scale_endpoint(end, factor=5):
+    '''
+       :param end: A list representing the endpoint of the vectors
+       :type end: List of floats
+
+       :param factor: The scaling factor for end to be increased by
+       :type factor: Int, optional - default 5
+
+       :return: Modified end vector
+       :rtype: List of floats
+     '''
     for i in range(len(end)):
         end[i] = end[i]*factor
     return end
 
 def shift_vectors(start, atomCoords):
+    '''
+       :param start: A list representing the starting point of the vector
+       :type start: List of floats
+
+       :param atomCoords: The coordinates of the atom from which the vector will originate
+       :type atomCoords: List of floats
+
+       :return: Modified start vector
+       :rtype: List of floats
+    '''
     for i in range(len(start)):
         start[i] += atomCoords[i]
     return start
 
-def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1,  hradius=-1,
+def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1,  hradius=-1,
                type='electric', name='', scaling = 7):
 
+    '''
+       :param origin: List representing origin point of vector to be drawn
+       :type origin: List of floats
+
+       :param endpoint: List representing endpoint of vector to be drawn
+       :type endpoint: List of floats
+
+       :param color: Color of arrow
+       :type color: String, optional - default blue
+
+       :param radius: Radius of cylinder portion of arrow
+       :type radius: Float, optional - default .1
+
+       :param gap: Specifies a gap between the head and body of the arrow, if desired
+       :type gap: Float, optional - default 0
+
+       :param hlength: Length of the head of the arrow
+       :type hlength: Float, optional - default -1
+
+       :param hradius: Radius of the head of the arrow
+       :type hradius: Float, optional - default -1
+
+       :param type: Type of vector being drawn, electric or magnetic
+       :type type: String, optional - default electric
+
+       :param name: Name to be shown in PyMol for the cgo object
+       :type name: String, optional - default blank
+
+       :param scaling: Scaling factor that is passed to scale_endpoint function
+       :type scaling: Int, optional - default 7
+
+
+       :return: None
+    '''
     from chempy import cpv
     #converting parameters to floats
     radius, gap = float(radius), float(gap)
@@ -52,7 +106,7 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.25, gap=0.0, hlength=-1, 
         xyz1 = cmd.get_coords('sele', 1)
         xyz1 = xyz1.flatten()
         xyz1 = xyz1.tolist()
-        length=np.linalg.norm(np.array(endpoint)-np.array(xyz1))
+        length=np.linalg.norm(np.array(endpoint))
         xyz2 = scale_endpoint(endpoint,scaling)
         xyz2 = shift_vectors(xyz2, xyz1)
     else:
