@@ -155,7 +155,7 @@ def select_vectors(index, df, fromAtom=False):
     Pulls vector data from dataframe based on a given index. Automatically calls elec_mag to draw arrows
 
     :param index: Index of dataframe where vector data will be selected from
-    :type index: List of ints
+    :type index: Int
 
     :param df: Dataframe containing vector data loaded previously
     :type df: Dataframe
