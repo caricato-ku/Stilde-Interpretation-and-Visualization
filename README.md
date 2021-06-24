@@ -7,3 +7,5 @@ Simply place the .py files in your directory of choice.
 
 ## Documentation
 https://stilde-interpretation-and-visualization.readthedocs.io/en/latest/
+or
+https://caricato-ku.github.io/Stilde-Interpretation-and-Visualization/
