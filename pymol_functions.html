@@ -97,15 +97,15 @@
 
 <dl class="function">
 <dt id="pymol_functions.elec_mag">
-<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">elec_mag</code><span class="sig-paren">(</span><em class="sig-param">elec_end, mag_end, elec_scaling_factor=7, mag_scaling_factor=7, elec_start=[0.0, 0.0, 0.0], mag_start=[0.0, 0.0, 0.0]</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.elec_mag" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">elec_mag</code><span class="sig-paren">(</span><em class="sig-param">elec_end, mag_end, elec_scale=7, mag_scale=7, elec_start=[0.0, 0.0, 0.0], mag_start=[0.0, 0.0, 0.0], use_lab=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.elec_mag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main driver function for drawing arrows in PyMol. Calls cgo_arrow function with correct parameters</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elec_end</strong> (<em>List of floats</em>) – Endpoint of electric vector</p></li>
 <li><p><strong>mag_end</strong> (<em>List of floats</em>) – Endpoint of magnetic vector</p></li>
-<li><p><strong>elec_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for electric vector</p></li>
-<li><p><strong>mag_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for magnetic vector</p></li>
+<li><p><strong>elec_scale</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for electric vector</p></li>
+<li><p><strong>mag_scale</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for magnetic vector</p></li>
 <li><p><strong>elec_start</strong> (<em>List of floats</em>) – Starting point for electric vector - defaults to coordinate origin [0,0,0]</p></li>
 <li><p><strong>mag_start</strong> (<em>List of floats</em>) – Starting point for magnetic vector - defaults to coordinate origin [0,0,0]</p></li>
 </ul>
@@ -125,7 +125,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>elec_end</strong> (<em>List of floats</em>) – Endpoint of electric vector</p></li>
 <li><p><strong>mag_end</strong> (<em>List of floats</em>) – Endpoint of magnetic vector</p></li>
-<li><p><strong>elec_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for electric vector</p></li>
+<li><p><strong>elec_scale</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for electric vector</p></li>
 <li><p><strong>mag_scaling_factor</strong> (<em>int</em><em>, </em><em>optional - defaults to 7</em>) – Scaling factor for magnetic vector</p></li>
 <li><p><strong>elec_start</strong> (<em>List of floats</em>) – Starting point for electric vector - defaults to selected atom xyz coordinates</p></li>
 <li><p><strong>mag_start</strong> (<em>List of floats</em>) – Starting point for magnetic vector - defaults to selected atom xyz coordinates</p></li>
@@ -135,6 +135,15 @@
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymol_functions.gaugeComp">
+<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">gaugeComp</code><span class="sig-paren">(</span><em class="sig-param">vecs</em>, <em class="sig-param">freq=0.077357</em>, <em class="sig-param">max_len=4.0</em>, <em class="sig-param">use_lab=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.gaugeComp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares stilde vectors between gauges</p>
+<p>Receives a dict with lg,mvg-m, and mvg-e lists of vectors.
+Draws them after rescaling relative to the longest. MVG vectors each 
+receive a factor of (1/freq)^(0.5).</p>
 </dd></dl>
 
 <dl class="function">
