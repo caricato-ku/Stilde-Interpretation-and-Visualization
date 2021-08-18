@@ -36,7 +36,7 @@ if __name__=="__main__":
     print('\n')
 
 
-    dataframe.insert(7, 'Electric Magnitude', np.nan, False)
+    dataframe.insert(6, 'Electric Magnitude', np.nan, False)
     dataframe.insert(10, 'Magnetic Magnitude', np.nan, False)
     dataframe.insert(11, 'Cosine of Angle', np.nan, False)
 
