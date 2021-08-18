@@ -48,7 +48,7 @@ def shift_vectors(start, atomCoords):
     return start
 
 def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1,  hradius=-1,
-               type='electric', name='', scaling = 7):
+               type='electric', name='', scaling = 7,use_lab= True):
 
     '''
        :param origin: List representing origin point of vector to be drawn
@@ -131,7 +131,7 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1, 
     obj = [cgo.CYLINDER] + xyz1 + xyz3 + [radius] + color1 + color1 + \
           [cgo.CONE] + xyz3 + xyz2 + [hradius, 0.0] + color1 + color2 + \
           [1.0, 0.0]
-    print(obj)
+#    print(obj)
 
     ##Place pseudoatom with label at midpoint of vector
     v0=np.array(xyz1)
@@ -142,7 +142,10 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1, 
         name = cmd.get_unused_name('arrow')
 
     cmd.load_cgo(obj, f"vec_{name}")
-    ##For some reason pos fails, but it just happens to put it where I want
-    cmd.pseudoatom(f"lab_{name}",name="lab_"+name,label=f"{length:.2f}")#,pos=loc
-    cmd.group(name,members=f"lab_{name} vec_{name}")
+    if use_lab:
+        ##For some reason pos fails, but it just happens to put it where I want
+        cmd.pseudoatom(f"lab_{name}",name="lab_"+name,label=f"{length:.2f}")#,pos=loc
+        cmd.group(name,members=f"lab_{name} vec_{name}")
+    else:
+        cmd.group(name,members=f"vec_{name}")
 cmd.extend('cgo_arrow', cgo_arrow)
