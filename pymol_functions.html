@@ -79,6 +79,12 @@
   <div class="section" id="module-pymol_functions">
 <span id="pymol-functions-module"></span><h1>pymol_functions module<a class="headerlink" href="#module-pymol_functions" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
+<dt id="pymol_functions.checkVecs">
+<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">checkVecs</code><span class="sig-paren">(</span><em class="sig-param">pairs</em>, <em class="sig-param">gauge='VE'</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.checkVecs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use gaugeComp to check given pairs</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pymol_functions.createSphere">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">createSphere</code><span class="sig-paren">(</span><em class="sig-param">pos</em>, <em class="sig-param">radius=1.0</em>, <em class="sig-param">color='Yellow'</em>, <em class="sig-param">transparency=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.createSphere" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws a sphere representative of s-tilde magnitude</p>
@@ -223,7 +229,7 @@ for a given list of indices to draw multiple arrows</p>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>string</strong> (<em>string</em>) – String object to be converted to list of floats</p></li>
+<li><p><strong>string</strong> (<em>string</em><em>, </em><em>float</em><em>, or </em><em>np.ndarray</em>) – Object to be converted to list of floats</p></li>
 <li><p><strong>internalType</strong> (<em>string</em><em> (</em><em>,</em><em>optional -</em><em>) </em><em>defaults to float</em>) – String indicating the type of list to be converted to</p></li>
 </ul>
 </dd>
