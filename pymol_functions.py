@@ -27,9 +27,6 @@ def loadCSV(filename):
 cmd.extend("loadCSV", loadCSV)
 
 
-
-
-
 def newLoad(filename):
 
     """
@@ -49,12 +46,10 @@ def newLoad(filename):
 cmd.extend("newLoad",newLoad)
 
 
-
-
 def str_to_list(string,internalType="float"):
     """
-        :param string: String object to be converted to list of floats
-        :type string: string
+        :param string: Object to be converted to list of floats
+        :type string: string, float, or np.ndarray
 
         :param internalType: String indicating the type of list to be converted to
         :type internalType: string (,optional -) defaults to float
@@ -62,8 +57,8 @@ def str_to_list(string,internalType="float"):
         :return: Converted list of objectss
         :rtype: List of floats
     """
-    if type(string) is list:
-       return string
+    if type(string) in (list,np.ndarray):
+       return list(string)
     newList=string.strip('][').split(',')
     if internalType=="float":
        newList=[float(n) for n in newList]
@@ -111,6 +106,7 @@ def elec_mag(elec_end,mag_end,elec_scale=7, mag_scale=7,
     if mag_start!='sele':
         mag_start=str_to_list(mag_start)
 
+    
     cgo_arrow(origin=mag_start,endpoint=temp_mag_end,type="magnetic",name=str(count),
               scaling=mag_scale,use_lab=use_lab)
     cmd.group(f"stilde{count}",members=f"electric{count} magnetic{count}")
@@ -152,10 +148,6 @@ def elec_mag_fromAtom(elec_end,mag_end, elec_scale=7, mag_scale=7, elec_start='s
 cmd.extend("elec_mag_fromAtom", elec_mag_fromAtom)
 
 
-#Function can't (or at least shouldn't) access variables from inside
-#other functions.
-##If you want to make this default, can set df=None and call
-##loadCSV with a set file in this case.
 def select_vectors(index, df, fromAtom=False):
     """
     Pulls vector data from dataframe based on a given index. Automatically calls elec_mag to draw arrows
@@ -168,7 +160,6 @@ def select_vectors(index, df, fromAtom=False):
 
     :param fromAtom: Boolean indicating whether or not the vector will be drawn using an atom as origin, defaults to False
     :type fromAtom: Boolean
-
 
     :return: List of lists containing electric vector at index 0, magnetic vector at index 1
     :rtype: List of ints
@@ -236,36 +227,61 @@ def createSphere(pos, radius=1.0, color = 'Yellow',transparency=.5):
     cmd.set("cgo_transparency",value=transparency,selection="s1")
 cmd.extend("createSphere",createSphere)
 
-def gaugeComp(vecs,freq=0.077357,max_len=4.0,use_lab=False):
+def checkVecs(pairs,gauge="VE"):
+    """Use gaugeComp to check given pairs
+
     """
-    Compares stilde vectors between gauges
+    vectors0=pd.read_csv(f"vector_{gauge}0N",delim_whitespace=True, header=None)    
+    vectors0.set_index([0,1],inplace=True)    
+    vectors1=pd.read_csv(f"vector_{gauge}1N",delim_whitespace=True, header=None)    
+    vectors1.set_index([0,1],inplace=True)
+
+    for i,a in pairs:
+        vecs0=np.array(vectors0.loc[i,a])
+        elec0,mag0=vecs0[1:4],vecs0[4:]
+        vecs1=np.array(vectors1.loc[i,a])
+        elec1,mag1=vecs1[1:4],vecs1[4:]
+        if "E" in gauge:
+            elec1-=elec0
+            elec1*=-1.0
+        elif "M" in gauge:
+            mag1-=mag0
+            mag1*=-1.0
+        
+        result={gauge:[elec1,mag1]}
+        gaugeComp(result)
+cmd.extend("checkVecs",checkVecs)
+
+
+def gaugeComp(vecs,freq=0.077357,max_len=4.0,use_lab=False):
+    """Compares stilde vectors between gauges
 
     Receives a dict with lg,mvg-m, and mvg-e lists of vectors.
     Draws them after rescaling relative to the longest. MVG vectors each 
     receive a factor of (1/freq)^(0.5). 
-
     """
     vecs=deepcopy(vecs)
+    print(vecs)
     inv_freq=(1.0/freq)**.5
-    for i in ('mvg-m','mvg-e'):
-        vecs[i][0]=[v*inv_freq for v in vecs[i][0]]
-        vecs[i][1]=[v*inv_freq for v in vecs[i][1]]
+    for gauge in vecs:
+        if gauge in ('VM','VE'):
+            vecs[gauge][0]=[v*inv_freq for v in vecs[gauge][0]]
+            vecs[gauge][1]=[v*inv_freq for v in vecs[gauge][1]]
+
     ##Determine longest elec/magnetic, scale relative to these
-    lengths_E=[sum([v**2 for v in vecs[i][0]])**.5 for i in ('lg','mvg-m','mvg-e')]
-    lengths_M=[sum([v**2 for v in vecs[i][1]])**.5 for i in ('lg','mvg-m','mvg-e')]
+    lengths_E={gauge:sum([v**2 for v in vecs[gauge][0]])**.5 for gauge in vecs}
+    lengths_M={gauge:sum([v**2 for v in vecs[gauge][1]])**.5 for gauge in vecs}
 
-    stildes=[np.dot(vecs[i][0],vecs[i][1]) for i in ('lg','mvg-m','mvg-e')]
-    ang=np.degrees([np.arccos(stildes[i]/(lengths_E[i]*lengths_M[i])) for i in range(3)])
+    stildes={gauge:np.dot(vecs[gauge][0],vecs[gauge][1]) for gauge in vecs}
+    ang=np.degrees([np.arccos(stildes[gauge]/(lengths_E[gauge]*lengths_M[gauge])) for gauge in vecs])
 
-    max_E=max(lengths_E)
-    max_M=max(lengths_M)    
+    max_E=max(lengths_E.values())
+    max_M=max(lengths_M.values())    
 
-    for i,gauge in enumerate(['lg','mvg-m','mvg-e']):
+    for gauge in vecs:
         Escale=(max_len/max_E)
         Mscale=(max_len/max_M)
-        if i==2:
-            Escale*=-1
-            Mscale*=-1
+
         elec_mag(vecs[gauge][0],vecs[gauge][1],elec_scale=Escale,mag_scale=Mscale,use_lab=use_lab)
     print(f"Stilde={stildes}\n")
     print(f"Electric={lengths_E}\n")

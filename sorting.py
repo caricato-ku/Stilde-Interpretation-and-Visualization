@@ -3,7 +3,8 @@ This script functions as a sorting and filtering program for Excel files contain
 Usage at command line: py sorting.py *filename.csv* *output_filename.csv*
 Make sure to include the file extensions at both parts.
 
-The program uses pandas to read in a .csv file as a dataframe. It then sorts the dataframe by absolute value of s-tilde, maintaining the sign of s-tilde.
+The program uses pandas to read in a .csv file as a dataframe. It then sorts the dataframe by absolute value of s-tilde, 
+maintaining the sign of s-tilde.
 At the end it outputs a new .csv file with the desired number of s-tilde values. 
 '''
 import numpy as np
@@ -27,9 +28,12 @@ if __name__=="__main__":
     output = args.output
     number = args.number
 
+    columns=["nocc","nvirt","stilde",
+            "ElectricX","ElectricY","ElectricZ",
+            "MagneticX","MagneticY","MagneticZ"]
 
     try:
-        dataframe = pd.read_csv(filename)
+        dataframe = pd.read_csv(filename,header=0,names=columns)
     except FileNotFoundError as err:
         print("Exception: {0}".format(err))
         exit()
@@ -82,9 +86,6 @@ if __name__=="__main__":
         print("New file saved successfully")
     except OSError as err:
         print("Directory error: {0}".format(err))
-
-    ##Should try to break the program into functions and a main section
-    ##Google "main guarding python"
 
     #visual representation of s-tilde
     #print a relative number of s-tilde based on percent error/total sum of all values

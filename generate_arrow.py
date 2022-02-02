@@ -128,6 +128,7 @@ def cgo_arrow(origin, endpoint, color='blue', radius=0.10, gap=0.0, hlength=-1, 
     ##Location where cylinder switches to cone
     xyz3 = cpv.add(cpv.scale(normal, hlength), xyz2)
 
+
     obj = [cgo.CYLINDER] + xyz1 + xyz3 + [radius] + color1 + color1 + \
           [cgo.CONE] + xyz3 + xyz2 + [hradius, 0.0] + color1 + color2 + \
           [1.0, 0.0]
