@@ -289,16 +289,22 @@ def gaugeComp(vecs,freq=0.077357,max_len=4.0,use_lab=False):
     return
 cmd.extend("gaugeComp",gaugeComp)
 
-def polar_plot(tensor, Ntheta=150, Nphi=200, origin=None,
-               scale=1.0, pos_color="Blue", neg_color="Orange"):
+def polar_plot(tensor=None, Ntheta=150, Nphi=150, origin=None,
+               scale=1.0, pos_color="Blue", neg_color="Orange",style="loop"):
     """Generate a polar plot from the passed in tensor
 
     Ntheta/Nphi give how many increments of theta/phi to sample.
     origin lets you select a displacement of the polar plot.
     scale is a factor applied to r for all points
+
     Can also select colors for positive/negative portion 
-    (current default matches Autschbach)
+    (current default matches Autschbach) as well as style of the plot
+    ('points' just plots vertices, 
+     'lines' draws small segments between pairs of points,
+     'loops' draws a continuous line from the first to last point)
     """
+    if tensor is None:
+        tensor = np.array([1.0,1.0,1.0,0.0,0.0,0.0])
     if origin is None:
         origin = [0.0,0.0,0.0]
 
@@ -308,9 +314,19 @@ def polar_plot(tensor, Ntheta=150, Nphi=200, origin=None,
     theta_increment=(2*np.pi)/Ntheta
     phi_increment=(np.pi)/Nphi
 
+    # For 'loops' and 'lines' style, alternating
+    # between forward and reverse loops over phi
+    # avoids the next linked vertex being far away.
+    forward = range(Nphi)
+    reverse = range(Nphi,0,-1)
+
     for i in range(Ntheta): 
         theta=i*theta_increment
-        for j in range(Nphi):
+        if i%2==0:
+            phi_range=forward
+        else:
+            phi_range=reverse
+        for j in phi_range:
             phi=j*phi_increment
             r=scale*calc_r(theta,phi,tensor)
             if r>=0.0:
@@ -321,19 +337,27 @@ def polar_plot(tensor, Ntheta=150, Nphi=200, origin=None,
     cart_pos = convert_cartesian(pos)        
     cart_neg = convert_cartesian(neg)        
 
+    if style.lower() == "loop":
+        begin = [cgo.BEGIN, cgo.LINE_LOOP]
+    elif style.lower() == "points":
+        begin = [cgo.BEGIN, cgo.POINTS]
+    elif style.lower() == "lines":
+        begin = [cgo.BEGIN, cgo.LINES]
+    else:
+        print("Unknown style, defaulting to 'loop'")
+        begin = [cgo.BEGIN, cgo.LINE_LOOP]
+
     # Write out list of vertices to make lines. For all but the first
     # and last vertex need to repeat (e.g. v1->v2, v2->v, ...)
-    obj_pos = [2*[cgo.VERTEX,x[0]+origin[0],x[1]+origin[1],x[2]+origin[2]] if (i==0 or i==len(cart_pos))
-               else [cgo.VERTEX,x[0]+origin[0],x[1]+origin[1],x[2]+origin[2]] for x in cart_pos]
+    obj_pos = [[cgo.VERTEX,x[0]+origin[0],x[1]+origin[1],x[2]+origin[2]] for x in cart_pos]
     #flatten the nested list
     obj_pos = [vert for verts in obj_pos for vert in verts]
     #Append group specifiers for CGO object
-    obj_pos = [cgo.BEGIN, cgo.LINES] + obj_pos + [cgo.END]
+    obj_pos = begin + obj_pos + [cgo.END]
 
-    obj_neg = [2*[cgo.VERTEX,x[0],x[1],x[2]] if (i==0 or i==len(cart_neg))
-               else [cgo.VERTEX,x[0],x[1],x[2]] for x in cart_neg]
+    obj_neg = [[cgo.VERTEX,x[0],x[1],x[2]] for x in cart_neg]
     obj_neg = [vert for verts in obj_neg for vert in verts]
-    obj_neg = [cgo.BEGIN, cgo.LINES] + obj_neg + [cgo.END]
+    obj_neg = begin + obj_neg + [cgo.END]
 
     cmd.load_cgo(obj_pos,"positive_polar",0)
     cmd.color(pos_color,selection='positive_polar')
@@ -343,12 +367,10 @@ def polar_plot(tensor, Ntheta=150, Nphi=200, origin=None,
 cmd.extend("polar_plot",polar_plot)
 
 def calc_r(theta=0.0,phi=0.0,tensor=None):
-    if tensor is None:
-        tensor = np.array([1.0,1.0,1.0,0.0,0.0,0.0])
     sp=np.sin(phi)
     st=np.sin(theta)
-    cp=np.sin(phi)
-    ct=np.sin(theta)
+    cp=np.cos(phi)
+    ct=np.cos(theta)
 
     r=(tensor[0]*sp**2*ct**2
       +tensor[1]*sp**2*st**2
