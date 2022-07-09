@@ -214,13 +214,18 @@ for a given list of indices to draw multiple arrows</p>
 
 <dl class="function">
 <dt id="pymol_functions.polar_plot">
-<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">polar_plot</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">Ntheta=150</em>, <em class="sig-param">Nphi=200</em>, <em class="sig-param">origin=None</em>, <em class="sig-param">scale=1.0</em>, <em class="sig-param">pos_color='Blue'</em>, <em class="sig-param">neg_color='Orange'</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.polar_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">polar_plot</code><span class="sig-paren">(</span><em class="sig-param">tensor=None</em>, <em class="sig-param">Ntheta=150</em>, <em class="sig-param">Nphi=150</em>, <em class="sig-param">origin=None</em>, <em class="sig-param">scale=1.0</em>, <em class="sig-param">pos_color='Blue'</em>, <em class="sig-param">neg_color='Orange'</em>, <em class="sig-param">style='loop'</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.polar_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a polar plot from the passed in tensor</p>
 <p>Ntheta/Nphi give how many increments of theta/phi to sample.
 origin lets you select a displacement of the polar plot.
-scale is a factor applied to r for all points
-Can also select colors for positive/negative portion 
-(current default matches Autschbach)</p>
+scale is a factor applied to r for all points</p>
+<p>Can also select colors for positive/negative portion 
+(current default matches Autschbach) as well as style of the plot
+(‘points’ just plots vertices,</p>
+<blockquote>
+<div><p>‘lines’ draws small segments between pairs of points,
+‘loops’ draws a continuous line from the first to last point)</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
