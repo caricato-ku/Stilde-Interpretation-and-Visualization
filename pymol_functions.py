@@ -1,7 +1,6 @@
-from pymol import cmd,preset,util
+from pymol import cmd,preset,util,cgo
 import pandas as pd
 import numpy as np
-from pymol.cgo import *
 from copy import deepcopy
 
 #Keep track of times elec_mag is called
@@ -289,3 +288,77 @@ def gaugeComp(vecs,freq=0.077357,max_len=4.0,use_lab=False):
     print(f"Angles={ang}\n")
     return
 cmd.extend("gaugeComp",gaugeComp)
+
+def polar_plot(tensor, Ntheta=150, Nphi=200, origin=None,
+               scale=1.0, pos_color="Blue", neg_color="Orange"):
+    """Generate a polar plot from the passed in tensor
+
+    Ntheta/Nphi give how many increments of theta/phi to sample.
+    origin lets you select a displacement of the polar plot.
+    scale is a factor applied to r for all points
+    Can also select colors for positive/negative portion 
+    (current default matches Autschbach)
+    """
+    if origin is None:
+        origin = [0.0,0.0,0.0]
+
+    pos=[]
+    neg=[]
+
+    theta_increment=(2*np.pi)/Ntheta
+    phi_increment=(np.pi)/Nphi
+
+    for i in range(Ntheta): 
+        theta=i*theta_increment
+        for j in range(Nphi):
+            phi=j*phi_increment
+            r=scale*calc_r(theta,phi,tensor)
+            if r>=0.0:
+                pos.append((r,theta,phi))
+            else:
+                neg.append((np.abs(r),theta,phi))
+    
+    cart_pos = convert_cartesian(pos)        
+    cart_neg = convert_cartesian(neg)        
+
+    # Write out list of vertices to make lines. For all but the first
+    # and last vertex need to repeat (e.g. v1->v2, v2->v, ...)
+    obj_pos = [2*[cgo.VERTEX,x[0]+origin[0],x[1]+origin[1],x[2]+origin[2]] if (i==0 or i==len(cart_pos))
+               else [cgo.VERTEX,x[0]+origin[0],x[1]+origin[1],x[2]+origin[2]] for x in cart_pos]
+    #flatten the nested list
+    obj_pos = [vert for verts in obj_pos for vert in verts]
+    #Append group specifiers for CGO object
+    obj_pos = [cgo.BEGIN, cgo.LINES] + obj_pos + [cgo.END]
+
+    obj_neg = [2*[cgo.VERTEX,x[0],x[1],x[2]] if (i==0 or i==len(cart_neg))
+               else [cgo.VERTEX,x[0],x[1],x[2]] for x in cart_neg]
+    obj_neg = [vert for verts in obj_neg for vert in verts]
+    obj_neg = [cgo.BEGIN, cgo.LINES] + obj_neg + [cgo.END]
+
+    cmd.load_cgo(obj_pos,"positive_polar",0)
+    cmd.color(pos_color,selection='positive_polar')
+    cmd.load_cgo(obj_neg,"negative_polar",0)
+    cmd.color(neg_color,selection='negative_polar')
+    return
+cmd.extend("polar_plot",polar_plot)
+
+def calc_r(theta=0.0,phi=0.0,tensor=None):
+    if tensor is None:
+        tensor = np.array([1.0,1.0,1.0,0.0,0.0,0.0])
+    sp=np.sin(phi)
+    st=np.sin(theta)
+    cp=np.sin(phi)
+    ct=np.sin(theta)
+
+    r=(tensor[0]*sp**2*ct**2
+      +tensor[1]*sp**2*st**2
+      +tensor[2]*cp**2
+      +2*tensor[3]*st*ct*sp**2
+      +2*tensor[4]*ct*sp*cp
+      +2*tensor[5]*st*sp*cp)
+
+    return r
+     
+def convert_cartesian(polar_coords):
+    return [(r*np.cos(theta)*np.sin(phi), r*np.sin(theta)*np.sin(phi), r*np.cos(phi))
+            for r,theta,phi in polar_coords]
