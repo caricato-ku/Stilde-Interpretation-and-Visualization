@@ -79,10 +79,20 @@
   <div class="section" id="module-pymol_functions">
 <span id="pymol-functions-module"></span><h1>pymol_functions module<a class="headerlink" href="#module-pymol_functions" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
+<dt id="pymol_functions.calc_r">
+<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">calc_r</code><span class="sig-paren">(</span><em class="sig-param">theta=0.0</em>, <em class="sig-param">phi=0.0</em>, <em class="sig-param">tensor=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.calc_r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="pymol_functions.checkVecs">
 <code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">checkVecs</code><span class="sig-paren">(</span><em class="sig-param">pairs</em>, <em class="sig-param">gauge='VE'</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.checkVecs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use gaugeComp to check given pairs</p>
 </dd></dl>
+
+<dl class="function">
+<dt id="pymol_functions.convert_cartesian">
+<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">convert_cartesian</code><span class="sig-paren">(</span><em class="sig-param">polar_coords</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.convert_cartesian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="pymol_functions.createSphere">
@@ -200,6 +210,17 @@ for a given list of indices to draw multiple arrows</p>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymol_functions.polar_plot">
+<code class="sig-prename descclassname">pymol_functions.</code><code class="sig-name descname">polar_plot</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">Ntheta=150</em>, <em class="sig-param">Nphi=200</em>, <em class="sig-param">origin=None</em>, <em class="sig-param">scale=1.0</em>, <em class="sig-param">pos_color='Blue'</em>, <em class="sig-param">neg_color='Orange'</em><span class="sig-paren">)</span><a class="headerlink" href="#pymol_functions.polar_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a polar plot from the passed in tensor</p>
+<p>Ntheta/Nphi give how many increments of theta/phi to sample.
+origin lets you select a displacement of the polar plot.
+scale is a factor applied to r for all points
+Can also select colors for positive/negative portion 
+(current default matches Autschbach)</p>
 </dd></dl>
 
 <dl class="function">
