@@ -367,6 +367,7 @@ def polar_plot(tensor=None, Ntheta=150, Nphi=150, origin=None,
 cmd.extend("polar_plot",polar_plot)
 
 def calc_r(theta=0.0,phi=0.0,tensor=None):
+    """Evaluate r from the polar function"""
     sp=np.sin(phi)
     st=np.sin(theta)
     cp=np.cos(phi)
@@ -382,5 +383,64 @@ def calc_r(theta=0.0,phi=0.0,tensor=None):
     return r
      
 def convert_cartesian(polar_coords):
+    """Convert polar coordinates to Cartesian
+
+    Expects `polar_coords` to be a list of (r,theta,phi) tuples.
+    """
     return [(r*np.cos(theta)*np.sin(phi), r*np.sin(theta)*np.sin(phi), r*np.cos(phi))
             for r,theta,phi in polar_coords]
+
+
+def coord_axes(x_scale=1.0,y_scale=1.0,z_scale=1.0, loc=None):
+    """Display individually scalable coordinate axes
+
+    Adapted from https://pymolwiki.org/index.php/Axes
+    """
+    if loc==None:
+        loc = [1.0,1.0,1.0]
+
+    w = 0.06 # cylinder width 
+    l = 0.75 # cylinder length
+    h = 0.25 # cone height
+    d = w * 1.618 # cone base diameter
+    
+    x=x_scale*l
+    y=y_scale*l
+    z=z_scale*l
+
+    x_cone_start = loc.copy()
+    x_cone_start[0] += x
+    x_cone_end = x_cone_start.copy()
+    x_cone_end[0] += h
+
+    y_cone_start = loc.copy()
+    y_cone_start[1] += y
+    y_cone_end = y_cone_start.copy()
+    y_cone_end[1] += h
+
+    z_cone_start = loc.copy()
+    z_cone_start[2] += z
+    z_cone_end = z_cone_start.copy()
+    z_cone_end[2] += h
+
+    red = [1.0,0.0,0.0]
+    green = [0.0,1.0,0.0]
+    blue = [0.0,0.0,1.0]
+
+    #CYLINDER is defined by a top center (x1,y1,z1), bottom center (x2,y2,z2), radius (r),
+    #start color (r1,g1,b1), and end color (r2,g2,b2) (allows for a color gradient)
+
+    #CONE is top center (x1,y1,z1), bottom center (x2,y2,z2), top radius (r1), bottom radius (r2),
+    #start color (r1,g1,b1), end color (r2,g2,b2), and 0/1 for open/closed top/bottom       
+
+    x_arrow = ([CYLINDER] + loc + x_cone_start + [w] + 2*red
+               +[CONE] + x_cone_start + x_cone_end + [d] + [0.0] + 2*red + [1.0, 1.0]) 
+    y_arrow = ([CYLINDER] + loc + y_cone_start + [w] + 2*green
+               +[CONE] + y_cone_start + y_cone_end + [d] + [0.0] + 2*green + [1.0, 1.0]) 
+    z_arrow = ([CYLINDER] + loc + z_cone_start + [w] + 2*blue
+               +[CONE] + z_cone_start + z_cone_end + [d] + [0.0] + 2*blue + [1.0, 1.0])
+    obj = x_arrow + y_arrow + z_arrow 
+
+    cmd.load_cgo(obj, 'axes')
+    return
+cmd.extend("coord_axes",coord_axes)
